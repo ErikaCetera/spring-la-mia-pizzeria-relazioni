@@ -1,9 +1,8 @@
 package org.lessons.java.spring_la_mia_pizzeria_crud.controller;
 
-
-
 import java.util.List;
 
+import org.lessons.java.spring_la_mia_pizzeria_crud.model.Offer;
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.Pizza;
 import org.lessons.java.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,23 +18,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
 
-
 @Controller
 @RequestMapping("/pizze")
 public class PizzaController {
 
     @Autowired
     private PizzaRepository repository;
-    
+
     @GetMapping
-    public String index(Model model){
+    public String index(Model model) {
         List<Pizza> pizze = repository.findAll();
         model.addAttribute("pizze", pizze);
         return "pizze/index";
     }
 
     @GetMapping("/{id}")
-    public String show(Model model, @PathVariable("id") Integer id){
+    public String show(Model model, @PathVariable("id") Integer id) {
         Pizza pizza = repository.findById(id).get();
         model.addAttribute("pizza", pizza);
         return "pizze/show";
@@ -54,10 +52,9 @@ public class PizzaController {
         return "pizze/create";
     }
 
-
     @PostMapping("/create")
     public String store(
-        @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
+            @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "pizze/create";
         }
@@ -72,10 +69,9 @@ public class PizzaController {
         return "pizze/edit";
     }
 
-
     @PostMapping("/edit/{id}")
     public String update(
-        @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
+            @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
 
             return "/pizze/edit";
@@ -90,8 +86,12 @@ public class PizzaController {
         return "redirect:/pizze";
     }
 
-
-
+    @GetMapping("/{id}/offer")
+    public String offer(@PathVariable Integer id, Model model) {
+        Offer offer = new Offer();
+        offer.setPizza(repository.findById(id).get());
+        model.addAttribute("offer", offer);
+        return "offers/create";
+    }
 
 }
-
