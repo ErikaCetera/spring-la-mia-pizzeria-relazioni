@@ -19,7 +19,7 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-8">
-                    <form th:action="@{/offers/create}" method="post" id="form-offer" th:object="${offer}" class="mb-2">
+                    <form th:action="${edit} ? @{|/offers/edit/${offer.id}|} : @{/offers/create}" method="post" id="form-offer" th:object="${offer}" class="mb-2">
                         <input type="hidden" th:field="*{pizza}" id="linked-pizza" >
                         <div class="mb-3">
                             <label class="form-label" for="title">Titolo Offerta</label>
@@ -59,7 +59,7 @@
 
 
                         <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary">Aggiungi nuova offerta</button>
+                            <button type="submit" class="btn btn-primary">Salva</button>
                         </div>
                     </form>
                 </div>

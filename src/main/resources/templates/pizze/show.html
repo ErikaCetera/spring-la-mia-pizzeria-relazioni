@@ -43,12 +43,16 @@
                             <th>Titolo</th>
                             <th>Data inizio</th>
                             <th>Data fine</th>
+                            <th></th>
                         </thead>
                         <tbody>
                             <tr th:each="offer : ${pizza.offers}" th:object="${offer}">
                                 <td>[[*{title}]]</td>
                                 <td>[[*{startOffer}]]</td>
                                 <td>[[*{endOffer}]]</td>
+                                <td>
+                                <a class="btn btn-warning btn-sm" th:href="@{|/offers/edit/${offer.id}|}">Modifica</a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
