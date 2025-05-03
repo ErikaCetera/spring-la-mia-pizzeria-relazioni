@@ -11,7 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
+
 
 @Entity
 @Table(name = "offers")
@@ -25,14 +25,17 @@ public class Offer {
     @ManyToOne
     @JoinColumn(name = "pizza_id", nullable = false)//chiave esterna
     private Pizza pizza;
-
-
+    
     @NotNull(message = "non può essere null")
-    @PastOrPresent
+    private String title;
+    @NotNull(message = "non può essere null")
     private LocalDate startOffer;
-    @PastOrPresent
     private LocalDate endOffer;
-    private String description;
+    
+
+
+
+    
     public Integer getId() {
         return id;
     }
@@ -57,11 +60,12 @@ public class Offer {
     public void setEndOffer(LocalDate endOffer) {
         this.endOffer = endOffer;
     }
-    public String getDescription() {
-        return description;
+    
+    public String getTitle() {
+        return title;
     }
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
 

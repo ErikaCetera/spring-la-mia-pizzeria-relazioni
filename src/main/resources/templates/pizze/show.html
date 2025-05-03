@@ -14,26 +14,55 @@
         <div th:insert="fragments/navbar :: navbar"></div>
         <div th:insert="fragments/go-back-button :: go-back"></div>
         <div class="container text-center">
-            <div class="my-4">
-                
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="card">
-                        <h3  class="my-3">Pizza : [[${pizza.name}]]</h3>
-                        <img th:src="${pizza.image}" class="card-img-top mx-auto " th:alt="${pizza.name}" style="width:300px;"/>
-                        <div class="card-body">
-                            <p th:text="'Ingredienti:  ' + ${pizza.description}"></p>
-                            <p th:text="'Prezzo: ' + ${pizza.price} + '€'"></p>
+
+            <section class="my-4">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <h3 class="my-3">Pizza : [[${pizza.name}]]</h3>
+                            <img th:src="${pizza.image}" class="card-img-top mx-auto " th:alt="${pizza.name}"
+                                style="width:300px;" />
+                            <div class="card-body">
+                                <p th:text="'Ingredienti:  ' + ${pizza.description}"></p>
+                                <p th:text="'Prezzo: ' + ${pizza.price} + '€'"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-        <a th:href="@{/pizze/{id}/offer(id=${pizza.id})}" class="btn btn-success">Aggiungi offerta speciale</a>
+            
+            <section>
+                <div class="col" th:unless="${pizza.getOffers().size() > 0}">
+                    <h5>Nessuna offerta speciale presente</h5>
+                </div>
+                <div class="col" th:if="${pizza.getOffers().size() > 0}">
+                    <h5>Lista Offerte</h5>
+                    <table class="table">
+                        <thead>
+                            <th>Titolo</th>
+                            <th>Data inizio</th>
+                            <th>Data fine</th>
+                        </thead>
+                        <tbody>
+                            <tr th:each="offer : ${pizza.offers}" th:object="${offer}">
+                                <td>[[*{title}]]</td>
+                                <td>[[*{startOffer}]]</td>
+                                <td>[[*{endOffer}]]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div >
+                    <a th:href="@{/pizze/{id}/offer(id=${pizza.id})}" class="btn btn-success btn-sm">Aggiungi offerta
+                        speciale</a>
+                </div>
+            </section>
 
         </div>
-        </div>
+
+
     </main>
 
 
