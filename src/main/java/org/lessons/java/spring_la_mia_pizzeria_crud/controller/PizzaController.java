@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.Offer;
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.Pizza;
+import org.lessons.java.spring_la_mia_pizzeria_crud.repository.OfferRepository;
 import org.lessons.java.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,8 @@ public class PizzaController {
 
     @Autowired
     private PizzaRepository repository;
+    @Autowired
+    private OfferRepository offerRepository;
 
     @GetMapping
     public String index(Model model) {
@@ -82,7 +85,11 @@ public class PizzaController {
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
-        repository.deleteById(id);
+        Pizza pizza = repository.findById(id).get();
+        for(Offer offerToDelete : pizza.getOffers()){
+            offerRepository.delete(offerToDelete);
+        }
+        repository.delete(pizza);
         return "redirect:/pizze";
     }
 

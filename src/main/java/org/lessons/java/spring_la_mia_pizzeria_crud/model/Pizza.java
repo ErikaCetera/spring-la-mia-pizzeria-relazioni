@@ -3,6 +3,7 @@ package org.lessons.java.spring_la_mia_pizzeria_crud.model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,7 +33,7 @@ public class Pizza {
     private BigDecimal price;
 
     //aggiunta relazione tra una pizza e 0, 1 o più offerte
-    @OneToMany(mappedBy = "pizza") //basato su una sola pizza
+    @OneToMany(mappedBy = "pizza", cascade = {CascadeType.REMOVE}) //basato su una sola pizza
     private List<Offer> offers;
 
     
