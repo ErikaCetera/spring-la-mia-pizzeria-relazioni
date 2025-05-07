@@ -1,5 +1,6 @@
 package org.lessons.java.spring_la_mia_pizzeria_crud.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -21,6 +22,8 @@ public class Ingredient {
     private Integer id;
     @NotBlank(message = "must not be null, empty or blank")
     private String name;
+    private String allergen;
+    private BigDecimal price;
 
 
     @ManyToMany(mappedBy = "ingredients")
@@ -46,6 +49,19 @@ public class Ingredient {
     public void setPizze(List<Pizza> pizze) {
         this.pizze = pizze;
     }
+    public String getAllergen() {
+        return allergen;
+    }
+    public void setAllergen(String allergen) {
+        this.allergen = allergen;
+    }
+    public BigDecimal getPrice() {
+        return price;
+    }
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 
+    
     
 }
