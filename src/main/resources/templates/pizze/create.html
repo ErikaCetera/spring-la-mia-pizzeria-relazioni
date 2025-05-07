@@ -24,46 +24,53 @@
                         <div class="mb-3">
                             <label class="form-label" for="name">Nome</label>
                             <input class="form-control " type="text" id="name" th:field="*{name}"
-                            th:errorClass="is-invalid">
+                                th:errorClass="is-invalid">
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
                                 <ul>
-                                    <li th:each="error : ${#fields.errors('name')}"
-                                th:text="${error}"></li>
+                                    <li th:each="error : ${#fields.errors('name')}" th:text="${error}"></li>
                                 </ul>
                             </div>
                         </div>
 
                         <div class="mb-3">
+                            <p>Ingredienti:</p>
+                            <div class="single-ingredient form-check" th:each="ingredient : ${ingredients}">
+                                <input type="checkbox" th:id="|ingredient-${ingredient.id}|"
+                                    th:field="${pizza.ingredients}" th:value="${ingredient.id}">
+                                <label for="|ingredient-${ingredient.id}|" class="form-check-label"
+                                    th:text="${ingredient.name}"></label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
                             <label class="form-label" for="description">Descrizione degli ingredienti</label>
-                            <textarea class="form-control " type="text" id="description"
-                                th:field="*{description}" th:errorClass="is-invalid"></textarea>
-                                <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
-                                    <ul>
-                                        <li th:each="error : ${#fields.errors('description')}"
-                                    th:text="${error}"></li>
-                                    </ul>
-                                </div>
+                            <textarea class="form-control " type="text" id="description" th:field="*{description}"
+                                th:errorClass="is-invalid"></textarea>
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
+                                <ul>
+                                    <li th:each="error : ${#fields.errors('description')}" th:text="${error}"></li>
+                                </ul>
+                            </div>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label" for="price">Prezzo</label>
                             <input class="form-control " type="number" id="price" name="price" step="0.01" min="0"
                                 placeholder="€" th:field="*{price}" th:errorClass="is-invalid">
-                                <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}">
-                                    <ul>
-                                        <li th:each="error : ${#fields.errors('price')}"
-                                    th:text="${error}"></li>
-                                    </ul>
-                                </div>
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}">
+                                <ul>
+                                    <li th:each="error : ${#fields.errors('price')}" th:text="${error}"></li>
+                                </ul>
+                            </div>
                         </div>
 
                         <div class="mb-5">
                             <label class="form-label" for="image">Carica un'immagine</label>
-                            <input class="form-control " type="file" id="image" name="image" th:field="*{image}" th:errorClass="is-invalid">
+                            <input class="form-control " type="file" id="image" name="image" th:field="*{image}"
+                                th:errorClass="is-invalid">
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('image')}">
                                 <ul>
-                                    <li th:each="error : ${#fields.errors('image')}"
-                                th:text="${error}"></li>
+                                    <li th:each="error : ${#fields.errors('image')}" th:text="${error}"></li>
                                 </ul>
                             </div>
                         </div>

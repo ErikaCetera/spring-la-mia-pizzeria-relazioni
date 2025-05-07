@@ -46,16 +46,42 @@
                                 <td>[[*{allergen}]]</td>
                                 <td>[[*{price}]]</td>
                                 <td>
-                                    <a th:href="@{|/ingredients/edit/${ingredient.id}|}" class="btn btn-primary">Modifica</a>
+                                    <a th:href="@{|/ingredients/edit/${ingredient.id}|}" class="btn btn-warning m-2 btn-sm">Modifica</a>
                                 </td>
                                 <td>
-                                    <a th:href="@{/ingredients/delete/{id}(id=${ingredient.id})}" class="btn btn-primary">Elimina</a>
+                                    <button type="button" class="btn btn-danger m-2 btn-sm" data-bs-toggle="modal"
+                                        th:data-bs-target="'#delete-modal-' + ${ingredient.id}">
+                                        Elimina
+                                    </button>
                                 </td>
+                        
+                                <!-- Modale di eliminazione DENTRO il ciclo th:each -->
+                                <div class="modal" tabindex="-1" th:id="'delete-modal-' + ${ingredient.id}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Ingrediente <span th:text="${ingredient.name}"></span></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Sicuro di voler eliminare questo ingrediente?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Annulla</button>
+                                                <form th:action="@{/ingredients/delete/{id}(id=${ingredient.id})}" method="post">
+                                                    <button type="submit" class="btn btn-danger btn-sm">Elimina definitivamente</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </section>
+
+
 
         </div>
     </main>
